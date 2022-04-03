@@ -28,12 +28,12 @@ ELSE()
 
 	IF(WIN32)
 	 set(IpSystemTypePath ip/win32)
-	 set(LIBS ${LIBS} Ws2_32 winmm)
+	 set(LIBS ${LIBS} ws2_32 winmm)
 	ELSE(WIN32)
 	 set(IpSystemTypePath ip/posix)
 	ENDIF(WIN32)
 
-	ADD_LIBRARY(oscpack
+	ADD_LIBRARY(oscpack STATIC
 
 	ip/IpEndpointName.h
 	ip/IpEndpointName.cpp
@@ -64,26 +64,27 @@ ELSE()
 	ADD_LIBRARY(OSCPack::OSCPack ALIAS oscpack)
 
 	TARGET_INCLUDE_DIRECTORIES(oscpack PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+	TARGET_LINK_LIBRARIES(oscpack PUBLIC ${LIBS})
 
 
-	ADD_EXECUTABLE(OscUnitTests tests/OscUnitTests.cpp)
-	TARGET_LINK_LIBRARIES(OscUnitTests oscpack ${LIBS})
+#	ADD_EXECUTABLE(OscUnitTests tests/OscUnitTests.cpp)
+#	TARGET_LINK_LIBRARIES(OscUnitTests oscpack ${LIBS})
 
-	ADD_EXECUTABLE(OscSendTests tests/OscSendTests.cpp)
-	TARGET_LINK_LIBRARIES(OscSendTests oscpack ${LIBS})
+#	ADD_EXECUTABLE(OscSendTests tests/OscSendTests.cpp)
+#	TARGET_LINK_LIBRARIES(OscSendTests oscpack ${LIBS})
 
-	ADD_EXECUTABLE(OscReceiveTest tests/OscReceiveTest.cpp)
-	TARGET_LINK_LIBRARIES(OscReceiveTest oscpack ${LIBS})
+#	ADD_EXECUTABLE(OscReceiveTest tests/OscReceiveTest.cpp)
+#	TARGET_LINK_LIBRARIES(OscReceiveTest oscpack ${LIBS})
 
 
-	ADD_EXECUTABLE(OscDump examples/OscDump.cpp)
-	TARGET_LINK_LIBRARIES(OscDump oscpack ${LIBS})
+#	ADD_EXECUTABLE(OscDump examples/OscDump.cpp)
+#	TARGET_LINK_LIBRARIES(OscDump oscpack ${LIBS})
 
-	ADD_EXECUTABLE(SimpleReceive examples/SimpleReceive.cpp)
-	TARGET_LINK_LIBRARIES(SimpleReceive oscpack ${LIBS})
+#	ADD_EXECUTABLE(SimpleReceive examples/SimpleReceive.cpp)
+#	TARGET_LINK_LIBRARIES(SimpleReceive oscpack ${LIBS})
 
-	ADD_EXECUTABLE(SimpleSend examples/SimpleSend.cpp)
-	TARGET_LINK_LIBRARIES(SimpleSend oscpack ${LIBS})
+#	ADD_EXECUTABLE(SimpleSend examples/SimpleSend.cpp)
+#	TARGET_LINK_LIBRARIES(SimpleSend oscpack ${LIBS})
 
 
 	if(MSVC)
